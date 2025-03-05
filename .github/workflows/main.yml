@@ -21,7 +21,10 @@ jobs:
   
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip 
+          python -m pip install --upgrade pip
+          pip install flake8==6.0.0 flake8-isort==6.0.0
+      - name: Test with Flake
+        run: python -m flake8 backend/
           
   build-push:
     needs: tests
@@ -123,3 +126,20 @@ jobs:
       - name: Run autotests
         run: |
           pytest
+    
+  telegram_notify:
+    runs-on: ubuntu-latest
+    needs: server_tests
+    steps:
+      - name: Notify Telegram
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Пользователь ${{ github.actor }} добавил новый коммит:
+            Сообщение коммита: ${{ github.event.commits[0].message }}
+
+            Репозиторий: ${{ github.repository }}
+
+            Ссылка на коммит: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
