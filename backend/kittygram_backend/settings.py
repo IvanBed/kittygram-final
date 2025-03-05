@@ -55,12 +55,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kittygram_backend.wsgi.application'
 
 
+import os
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'mydatabase'),   
+        'USER': os.getenv('POSTGRES_USER', 'myuser'),     
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'mypassword'),  
+        'HOST': 'postgres',   
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation

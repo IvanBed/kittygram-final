@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:13.10
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    image: ivanbed/kittygram_backend   
+    volumes:
+      - media:/app/media
+      - static:/app/static/back
+    env_file: .env
+    depends_on:
+      - postgres
+
+  frontend:
+    image: ivanbed/kittygram_frontend   
+    volumes:
+      - static:/app/static/front
+    env_file: .env
+
+  gateway:
+    image: ivanbed/kittygram_gateway   
+    ports:
+      - "80:80"
+    volumes:
+      - static:/static
+      - media:/media
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  static:
+  media:
+  pg_data:
