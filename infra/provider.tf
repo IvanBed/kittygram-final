@@ -10,17 +10,18 @@ terraform {
     endpoints = {
       s3 = "https://storage.yandexcloud.net"
     }
-    bucket = "test-storage-3"
-    region = "ru-central1"
-    key    = "tf-state.tfstate"
-
-    access_key                  = ${{ secrets.ACCESS_KEY }} 
-    secret_key                  = ${{ secrets.SECRET_KEY }}
-
+    bucket                      = "test-storage-3"
+    region                      = "ru-central1"
+    key                         = "tf-state.tfstate"
+    
+    access_key = var.access_key
+    secret_key = var.secret_key
+    
     skip_region_validation      = true
     skip_credentials_validation = true
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
+    force_path_style            = true
   }
 }
 

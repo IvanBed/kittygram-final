@@ -41,6 +41,7 @@ jobs:
         run: terraform plan -var="ssh_key=$PUBLIC_SSH_KEY"
         env:
           PUBLIC_SSH_KEY: ${{ secrets.PUBLIC_SSH_KEY }}
+          
 
       - name: Terraform Apply
         working-directory: ./infra

@@ -27,6 +27,18 @@ variable "ssh_key" {
   type = string
 }
 
+variable "access_key" {
+  type      = string
+  sensitive = true
+  default   = null
+}
+
+variable "secret_key" {
+  type      = string
+  sensitive = true
+  default   = null
+}
+
 variable "cloud_id" {
   description = "Cloud ID"
   type = string
