@@ -40,7 +40,7 @@ jobs:
         if: ${{ github.event.inputs.action == 'plan' }}
         run: terraform plan -var="ssh_key=$PUBLIC_SSH_KEY"
         env:
-          PUBLIC_SSH_KEY: ${{ secrets.PUBLIC_SSH_KEY }}
+          PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
           
 
       - name: Terraform Apply
@@ -48,7 +48,7 @@ jobs:
         if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -var="ssh_key=$PUBLIC_SSH_KEY" -auto-approve
         env:
-          PUBLIC_SSH_KEY: ${{ secrets.PUBLIC_SSH_KEY }}
+          PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
 
       - name: Terraform Destroy
         working-directory: ./infra
