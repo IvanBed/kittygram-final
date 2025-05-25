@@ -6,17 +6,13 @@ terraform {
   }
   required_version = ">= 0.13"
 
+
   backend "s3" {
-    endpoints = {
-      s3 = "https://storage.yandexcloud.net"
-    }
-    bucket                      = "test-storage-3"
-    region                      = "ru-central1"
-    key                         = "tf-state.tfstate"
-    
-    access_key = var.access_key
-    secret_key = var.secret_key
-    
+    endpoint = "https://storage.yandexcloud.net"
+    bucket   = "ivan-tfstate"
+    region   = "ru-central1"
+    key      = "tf-state.tfstate"
+
     skip_region_validation      = true
     skip_credentials_validation = true
     skip_requesting_account_id  = true
