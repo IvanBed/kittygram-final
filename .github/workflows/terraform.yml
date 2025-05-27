@@ -38,9 +38,10 @@ jobs:
       - name: Terraform Plan
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'plan' }}
-        run: terraform plan -var="ssh_key=$PUBLIC_SSH_KEY"
+        run: terraform plan -var="ssh_key=$PUBLIC_SSH_KEY" -var="cloud_id=$CLOUD_ID" -auto-approve
         env:
           PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
+          CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
           
       - name: Terraform Apply
         working-directory: ./infra
