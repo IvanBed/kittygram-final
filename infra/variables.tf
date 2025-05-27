@@ -18,30 +18,49 @@ variable "net_cidr" {
 }
 
 variable "vm_1_name" {
-  type = string
-  default = "vm-for-kittygram"
+  type    = string
+  default = "vm-kittygram"
 }
 
 variable "ssh_key" {
   description = "SSH Public Key"
-  type = string
-}
-
-variable "access_key" {
-  type      = string
-  sensitive = true
-  default   = null
-}
-
-variable "secret_key" {
-  type      = string
-  sensitive = true
-  default   = null
+  type        = string
 }
 
 variable "cloud_id" {
   description = "Cloud ID"
-  type = string
+  type        = string
+}
+
+variable "folder_id" {
+  description = "Folder ID"
+  type        = string
+}
+
+variable "cores" {
+  type    = number
+  default = 2
+}
+
+variable "memory" {
+  type    = number
+  default = 2
+}
+
+variable "disk_size" {
+  type    = number
+  default = 10
+}
+
+variable "core_fraction" {
+  type = number
+  default = 20
+}
+
+variable "image_family" {
+  description = "Image family name to use for the VM"
+  type        = string
+  default     = "ubuntu-2204-lts"
 }
 
 variable "zone" {
@@ -49,19 +68,9 @@ variable "zone" {
   default = "ru-central1-a"
 }
 
-variable "folder_id" {
-  description = "Folder ID"
-  type = string
-}
-
 variable "platform_id" {
   type = string
   default = "standard-v1"
-}
-
-variable "image_family" {
-  type = string
-  default = "ubuntu-2404-lts"
 }
 
 variable "disk_type" {
@@ -69,28 +78,7 @@ variable "disk_type" {
   default = "network-hdd"
 }
 
-variable "disk_size" {
-  type = number
-  default = 20
-}
-
-variable "cores" {
-  type = string
-  default = "2"
-}
-
-variable "memory" {
-  type = string
-  default = "2"
-}
-
-variable "core_fraction" {
-  type = string
-  default = "5"
-}
-
 variable "nat" {
   type = bool
   default = true
 }
-

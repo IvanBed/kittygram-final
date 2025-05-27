@@ -42,13 +42,13 @@ jobs:
         env:
           PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
           
-
       - name: Terraform Apply
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
-        run: terraform apply -var="ssh_key=$PUBLIC_SSH_KEY" -auto-approve
+        run: terraform apply -var="ssh_key=$PUBLIC_SSH_KEY" -var="cloud_id=$CLOUD_ID" -auto-approve
         env:
           PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
+          CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
 
       - name: Terraform Destroy
         working-directory: ./infra
