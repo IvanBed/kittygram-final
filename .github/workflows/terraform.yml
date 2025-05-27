@@ -1,4 +1,5 @@
 name: Terraform
+
 on:
   workflow_dispatch:
     inputs:
@@ -10,13 +11,18 @@ on:
           - plan
           - apply
           - destroy
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_cloud_id: ${{ secrets.YC_CLOUD_ID }}
+      TF_VAR_folder_id: ${{ secrets.YC_FOLDER_ID }}
+      TF_VAR_ssh_key: ${{ secrets.SSH_KEY_CLD }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -28,12 +34,12 @@ jobs:
         run: |
           echo "${{ secrets.YC_KEY_JSON }}" | base64 -d > ./authorized_key.json
 
-      - name: Initialize Terraform
+      - name: Terraform Initialize
         working-directory: ./infra
         run: terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
         env:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY_CLD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       - name: Terraform Plan
         working-directory: ./infra
@@ -42,7 +48,7 @@ jobs:
         env:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  
+
       - name: Terraform Apply
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
@@ -50,7 +56,7 @@ jobs:
         env:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  
+
       - name: Terraform Destroy
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'destroy' }}
