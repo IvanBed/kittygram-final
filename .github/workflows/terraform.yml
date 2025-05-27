@@ -38,20 +38,23 @@ jobs:
       - name: Terraform Plan
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'plan' }}
-        run: terraform plan -var="ssh_key=$PUBLIC_SSH_KEY" -var="cloud_id=$CLOUD_ID" -auto-approve
+        run: terraform plan
         env:
-          PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
-          CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
-          
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  
       - name: Terraform Apply
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
-        run: terraform apply -var="ssh_key=$PUBLIC_SSH_KEY" -var="cloud_id=$CLOUD_ID" -auto-approve
+        run: terraform apply -auto-approve
         env:
-          PUBLIC_SSH_KEY: ${{ secrets.SSH_KEY_CLD }}
-          CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
-
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  
       - name: Terraform Destroy
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'destroy' }}
-        run: terraform destroy -var="ssh_key=$PUBLIC_SSH_KEY" -auto-approve
+        run: terraform destroy -auto-approve
+        env:
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
