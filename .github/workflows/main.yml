@@ -90,6 +90,12 @@ jobs:
 
             echo "Переходим в папку проекта"
             cd ./kittygram
+            
+            echo "Создаем .env файл"
+            echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+            echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
 
             echo "Запускаем файл docker-compose"
             docker compose -f docker-compose.production.yml pull
