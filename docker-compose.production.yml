@@ -8,8 +8,8 @@ services:
   backend:
     image: ivanbed/kittygram_backend   
     volumes:
-      - media:/app/media
       - static:/app/static/back
+      - media:/app/media
     env_file: .env
     depends_on:
       - postgres
