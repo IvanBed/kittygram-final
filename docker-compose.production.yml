@@ -17,7 +17,7 @@ services:
   frontend:
     image: ivanbed/kittygram_frontend   
     volumes:
-      - static:/app/static/front
+      - static:/app/build
     env_file: .env
 
   gateway:

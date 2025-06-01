@@ -110,7 +110,7 @@ jobs:
             echo "Выполняет миграции и сбор статики"
             docker compose -f docker-compose.production.yml exec backend python manage.py migrate
             docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
-            docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /app/static/back/
+            docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /app/static/back/static/
             docker image prune -f
             rm .env
 
